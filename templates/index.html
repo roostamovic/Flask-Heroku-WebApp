@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Technocolabs</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div class="col-md-9 col-sm-9 " style="margin:auto; margin-top:150px;">
+        <h3>Web Application Deployed by TEAM C</h3><hr>
+        <form action="/predict" method = "post">
+            <div class="row">
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="formGroupExampleInput">fundingTotalUsd ($)</label>
+                    <input type="text" name="fundingTotalUsd" class="form-control" required="required">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="formGroupExampleInput">milestones</label>
+                    <input type="text" name="milestones" class="form-control" required="required">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="formGroupExampleInput">web</label>
+                    <input type="text" name="web" class="form-control" required="required">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="formGroupExampleInput">bioTech</label>
+                    <input type="text" name="bioTech" class="form-control" required="required">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="formGroupExampleInput">activeDays</label>
+                    <input type="text" name="activeDays" class="form-control" required="required">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="formGroupExampleInput">isClosed</label>
+                    <input type="text" name="isClosed" class="form-control" required="required">
+                </div>
+            </div>
+            </div>
+            <button type="reset" class="btn btn-danger">Clean</button>
+            <button type="submit" class="btn btn-success">Predict Status</button>
+        </form><br>
+
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Classification Method</th>
+                <th scope="col">Accuracy Score</th>                      
+                <th scope="col">Classification Results</th>                     
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">K Nearest Neighbor</th>
+                    <td>% {{ accuracy_knn }}</td>
+                    {% if predict_knn == operating %}
+                    <td style="color:green; font-weight:600;">Operating</td>                            
+                    {% elif predict_knn == acquired %}
+                    <td style="color:orange; font-weight:600;">Acquired</td>                           
+                    {% elif predict_knn == closed %}
+                    <td style="color:red; font-weight:600;">Closed</td>
+                    {% elif predict_knn == ipo %}
+                    <td style="color:purple; font-weight:600;">IPO</td>                           
+                    {% else %}
+                    <td style="color:orangered; font-weight:600;">Cannot Find Status</td>
+                    {% endif %}
+                </tr> 
+                <tr>
+                    <th scope="row">Support Vector Machine</th>
+                    <td>% {{ accuracy_svm }}</td>
+                    {% if predict_svm == operating %}
+                    <td style="color:green; font-weight:600;">Operating</td>                            
+                    {% elif predict_svm == acquired %}
+                    <td style="color:orange; font-weight:600;">Acquired</td>                           
+                    {% elif predict_svm == closed %}
+                    <td style="color:red; font-weight:600;">Closed</td>
+                    {% elif predict_svm == ipo %}
+                    <td style="color:purple; font-weight:600;">IPO</td>                           
+                    {% else %}
+                    <td style="color:orangered; font-weight:600;">Cannot Find Status</td>
+                    {% endif %}
+                </tr>                 
+            </tbody>
+          </table>
+    </div>
+</body>
+</html>
